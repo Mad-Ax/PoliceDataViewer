@@ -1,0 +1,130 @@
+﻿@page "/policedata"
+
+<PageTitle>Police data</PageTitle>
+
+@using PoliceDataViewer.Data
+@inject PoliceSummaryDataService PoliceDataService
+
+<h1>Police crime data</h1>
+
+<p>This component fetches crime data from the public police API.</p>
+
+<form>
+    <div class="row">
+        <div class="col-2">
+            <label>
+                Date: 
+                <select class="form-select" @bind="search.Date">
+                    @if (dates != null)
+                    {
+                        @foreach (var date in dates)
+                        {
+                            <option>@date</option>
+                        }
+                    }
+                </select>
+            </label>
+        </div>
+        <div class="col-2">
+            <label>
+                Latitude: 
+                <input type="text" class="form-control" placeholder="Latitude" @bind="search.Latitude">
+            </label>
+        </div>
+        <div class="col-2">
+            <label>
+                Longitude: 
+                <input type="text" class="form-control" placeholder="Longitude" @bind="search.Longitude">
+            </label>
+        </div>
+        <div class="col-2">
+            <input type="button" class="btn btn-primary" value="Search" @onclick="@GetCrimeSummaries" />
+        </div>
+    </div>
+</form>
+
+@if (searching)
+{
+    <p><em>Searching...</em></p>
+}
+
+@if (crimes != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Crimes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var crime in crimes)
+            {
+                <tr>
+                    <td>@crime.Category</td>
+                    <td>@crime.CrimeCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Data.CrimeSummary>? crimes;
+
+    private SearchModel search = new SearchModel();
+
+    private IEnumerable<string>? dates;
+
+    private bool searching = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        dates = GetDates();
+        search.Date = dates.First();
+
+        await Task.CompletedTask;
+    }
+
+    protected async Task GetCrimeSummaries()
+    {
+        crimes = null;
+        searching = true;
+
+        crimes = await PoliceDataService.GetCrimeSummaries(search);
+
+        searching = false;
+    }
+
+    /// <summary>
+    /// Returns the last 12 months, up to the previous month, in a string format that can be read by the user and passed to the police data api
+    /// </summary>
+    /// <remarks>In a published app, we would get dates in an easier to read format and use a better model than string</remarks>
+    private IEnumerable<string> GetDates()
+    {
+        var month = DateTime.UtcNow.Month - 1;
+        var year = DateTime.UtcNow.Year - 1;
+
+        if (month == 0)
+        {
+            month = 12;
+            year--;
+        }
+
+        var dates = new List<string>();
+
+        for (int i = 0; i < 12; i++)
+        {
+            dates.Add($"{year}-{month:00}");
+
+            month++;
+            if (month > 12)
+            {
+                month = 1;
+                year++;
+            }
+        }
+
+        return dates.OrderByDescending(d => d);
+    }
+}

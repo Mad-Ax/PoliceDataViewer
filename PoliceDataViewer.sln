@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoliceDataViewer", "PoliceDataViewer\PoliceDataViewer.csproj", "{EB1819DC-AC35-4FD4-8243-C016C7FF86A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoliceDataViewer.Tests", "PoliceDataViewer.Tests\PoliceDataViewer.Tests.csproj", "{F67ED5F6-F6F4-4DF2-A695-9D7BB2860E96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB1819DC-AC35-4FD4-8243-C016C7FF86A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1819DC-AC35-4FD4-8243-C016C7FF86A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB1819DC-AC35-4FD4-8243-C016C7FF86A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB1819DC-AC35-4FD4-8243-C016C7FF86A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67ED5F6-F6F4-4DF2-A695-9D7BB2860E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67ED5F6-F6F4-4DF2-A695-9D7BB2860E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67ED5F6-F6F4-4DF2-A695-9D7BB2860E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67ED5F6-F6F4-4DF2-A695-9D7BB2860E96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A9B2FEA-03EC-4B2E-B4A4-644DA588149F}
+	EndGlobalSection
+EndGlobal
